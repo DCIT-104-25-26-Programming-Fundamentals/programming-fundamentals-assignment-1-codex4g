@@ -68,3 +68,115 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def add(a, b):
+    return a + b
+
+
+def subtract(a, b):
+    return a - b
+
+
+def multiply(a, b):
+    return a * b
+
+
+def divide(a, b):
+    if b == 0:
+        return None
+    return a / b
+
+
+def modulus(a, b):
+    if b == 0:
+        return None
+    return a % b
+
+
+def exponent(a, b):
+    return a ** b
+
+
+def get_number(prompt):
+    try:
+        return float(input(prompt))
+    except ValueError:
+        print("Error: Please enter a valid number.")
+        return None
+
+
+def format_result(value, force_two_decimals=False):
+    if value is None:
+        return None
+    if force_two_decimals:
+        return f"{value:.2f}"
+    if isinstance(value, float) and value.is_integer():
+        return str(int(value))
+    return str(value)
+
+
+def main():
+    while True:
+        print("=============================")
+        print("     SIMPLE CALCULATOR")
+        print("=============================")
+        print("1. Addition")
+        print("2. Subtraction")
+        print("3. Multiplication")
+        print("4. Division")
+        print("5. Modulus")
+        print("6. Exponentiation")
+        print("7. Quit")
+        choice = input("Select an operation (1-7): ").strip()
+
+        if choice == "7":
+            print("Goodbye!")
+            break
+
+        if choice not in {"1", "2", "3", "4", "5", "6"}:
+            print("Error: Please choose an option from 1 to 7.")
+            continue
+
+        first = get_number("Enter first number : ")
+        if first is None:
+            continue
+        second = get_number("Enter second number: ")
+        if second is None:
+            continue
+
+        if choice == "1":
+            result = add(first, second)
+            formatted = format_result(result)
+            operator = "+"
+        elif choice == "2":
+            result = subtract(first, second)
+            formatted = format_result(result)
+            operator = "-"
+        elif choice == "3":
+            result = multiply(first, second)
+            formatted = format_result(result)
+            operator = "*"
+        elif choice == "4":
+            result = divide(first, second)
+            if result is None:
+                print("Error: Cannot divide by zero.")
+                continue
+            formatted = format_result(result, force_two_decimals=True)
+            operator = "/"
+        elif choice == "5":
+            result = modulus(first, second)
+            if result is None:
+                print("Error: Cannot divide by zero.")
+                continue
+            formatted = format_result(result)
+            operator = "%"
+        else:
+            result = exponent(first, second)
+            formatted = format_result(result)
+            operator = "**"
+
+        print(f"Result: {first} {operator} {second} = {formatted}")
+
+
+if __name__ == "__main__":
+    main()
+
